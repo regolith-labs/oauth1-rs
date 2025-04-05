@@ -77,9 +77,6 @@ pub fn authorize(
     format!("OAuth {}", pairs.join(", "))
 }
 
-#[derive(Copy, Clone)]
-struct StrictEncodeSet;
-
 // Encode all but the unreserved characters defined in
 // RFC 3986, section 2.3. "Unreserved Characters"
 // https://tools.ietf.org/html/rfc3986#page-12

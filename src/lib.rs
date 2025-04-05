@@ -32,6 +32,7 @@ pub fn authorize(
     consumer: &Token,
     token: Option<&Token>,
     params: Option<HashMap<&str, Cow<str>>>,
+    verifier: Option<&str>,
 ) -> String {
     let mut params = params.unwrap_or_else(HashMap::new);
     // duration_since might fail if the system clock is set to before the UNIX epoch.
@@ -50,6 +51,9 @@ pub fn authorize(
     params.insert("oauth_version", "1.0".into());
     if let Some(tk) = token {
         params.insert("oauth_token", tk.key.as_ref().into());
+    }
+    if let Some(verifier) = verifier {
+        params.insert("oauth_verifier", verifier.into());
     }
 
     let signature = gen_signature(
